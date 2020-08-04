@@ -1,0 +1,30 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true     
+    
+eureka:
+  client:
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka} 
+  
+
+amazon:
+  access:
+    key: {YOUR-KEY}
+    secret-key: {YOUR-SECRET}
+  region: {YOUR-REGION}
+  end-point:
+    url: {YOUR-URL}
+#ribbon timeout
+ribbon:
+  ReadTimeout: 3000
+  ConnectTimeout: 3000
+      
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000
