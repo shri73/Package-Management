@@ -13,7 +13,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.eureka.common.security.JwtConfig;
 
-@EnableWebSecurity 	// Enable security config. This annotation denotes config for spring security.
+@EnableWebSecurity 	
 public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private JwtConfig jwtConfig;
@@ -22,7 +22,7 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
   	protected void configure(HttpSecurity http) throws Exception {
     	   http
 		.csrf().disable()
-		    // make sure we use stateless session; session won't be used to store user's state.
+		    
 	 	    .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) 	
 		.and()
 		    // handle an authorized attempts 
@@ -32,7 +32,7 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
 		   .addFilterAfter(new JwtTokenAuthenticationFilter(jwtConfig), UsernamePasswordAuthenticationFilter.class)
 		// authorization requests config
 		.authorizeRequests()
-		   // allow all who are accessing "customer" service
+		   // allow all who are accessing "customer, admin login and register" endpoints
 		   .antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()  
 		   .antMatchers(HttpMethod.POST, "/customer/register").permitAll()  
 		   .antMatchers(HttpMethod.POST, "/admin/register/{storeNumber}").permitAll()  
