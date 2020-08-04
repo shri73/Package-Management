@@ -30,7 +30,7 @@ import io.jsonwebtoken.security.Keys;
 
 public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter   {
 	
-	// We use auth manager to validate the user credentials
+	// using auth manager to validate the user credentials
 	private AuthenticationManager authManager;
 	
 	private final JwtConfig jwtConfig;
@@ -39,8 +39,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 		this.authManager = authManager;
 		this.jwtConfig = jwtConfig;
 		
-		// By default, UsernamePasswordAuthenticationFilter listens to "/login" path. 
-		// In our case, we use "/auth". So, we need to override the defaults.
+		
 		this.setRequiresAuthenticationRequestMatcher(new OrRequestMatcher(new AntPathRequestMatcher(jwtConfig.getUri(), "POST"),
 				new AntPathRequestMatcher("/admin/login", "POST")));
 	}
@@ -95,8 +94,6 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 		Key keysKey = Keys.hmacShaKeyFor(jwtConfig.getSecret().getBytes());
 		String token = Jwts.builder()
 			.setSubject(auth.getName())	
-			// Convert to list of strings. 
-			// This is important because it affects the way we get them back in the Gateway.
 			.claim("authorities", auth.getAuthorities().stream()
 				.map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
 			.setIssuedAt(createdDate)
