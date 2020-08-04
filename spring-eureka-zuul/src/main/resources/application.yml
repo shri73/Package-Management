@@ -1,0 +1,22 @@
+zuul:
+  ignored-services: '*'
+  sensitiveHeaders: Cookie,Set-Cookie
+  routes:
+    auth_customer:
+      path: /customer/**   
+      service-id: auth-service
+      stripPrefix: false
+    auth_admin:
+      path: /admin/**   
+      service-id: auth-service
+      stripPrefix: false  
+    package:
+      path: /package/**
+      service-id: package
+      stripPrefix: false
+      
+ribbon:
+  OkToRetryOnAllOperations: true # All operation requests are retried    
+  ReadTimeout: 10000 # Timeout of request processing after connection is established 
+  ConnectTimeout: 5000 # Time-out for connection establishment
+  MaxAutoRetries: 1 # Number of retries for the current instance      
