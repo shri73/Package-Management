@@ -54,7 +54,7 @@ public class Customer {
     @ElementCollection
     private Set<String> deviceToken;
     
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "role_id")
     private Role roles;
 
