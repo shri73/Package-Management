@@ -54,12 +54,11 @@ public class Admin {
     private Set<String> deviceToken;
     
     
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "role_id")
     private Role roles;
 	
-	@OneToOne(cascade = {CascadeType.ALL}, mappedBy = "manager", fetch = FetchType.EAGER)
-    //@JoinColumn(name = "store_no", referencedColumnName = "store_no")
+    @OneToOne(cascade = {CascadeType.ALL}, mappedBy = "manager", fetch = FetchType.LAZY)
     private Store store;
 	
 	public String toString() {
