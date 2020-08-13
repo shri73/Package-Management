@@ -25,15 +25,16 @@ import lombok.NoArgsConstructor;
 @Table(name = "stores")
 public class Store {
 	
-	@Id
+    @Id
     @Column(name = "store_no")
     private String storeNumber;
 	
-	@OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id", referencedColumnName = "employee_id")
     private Admin manager;
 	
-	@OneToMany(mappedBy="store")
+    @OneToMany(mappedBy="store")
+    @Fetch(FetchMode.JOIN)
     private Set<Beacon> beacons;
 	
 }
